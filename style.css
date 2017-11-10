@@ -20,3 +20,9 @@
   padding: 0 10px;
   transition: background .5s;
 }
+
+.nav ul li:hover {
+  background: #117bff;
+  cursor: pointer;
+  transition: background .5s;
+}
