@@ -22,11 +22,11 @@
 }
 
 .nav ul li.current {
-  background: #111;
+  background: #2F4F4F;
 }
 
 .nav ul li:hover {
-  background: #117bff;
+  background: #708090;
   cursor: pointer;
   transition: background .5s;
 }
