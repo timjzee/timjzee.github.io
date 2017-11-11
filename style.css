@@ -21,6 +21,10 @@
   transition: background .5s;
 }
 
+.nav ul li.current {
+  background: #111;
+}
+
 .nav ul li:hover {
   background: #117bff;
   cursor: pointer;
