@@ -8,10 +8,10 @@ permalink: /academic_output/
 - van Maastricht, L., Zee, T., Krahmer, E., & Swerts, M. (submitted). The interplay of prosodic cues in a second language.
 
 ### Conference Papers
-- van Maastricht, L., Zee, T., Krahmer, E., & Swerts, M. (2017). L1 perceptions of L2 prosody: The interplay between intonation, rhythm, and speech rate and their contribution to accentedness and comprehensibility. *Proc. Interspeech 2017*, 364-368.
+- van Maastricht, L., Zee, T., Krahmer, E., & Swerts, M. (2017). L1 perceptions of L2 prosody: The interplay between intonation, rhythm, and speech rate and their contribution to accentedness and comprehensibility. *Proc. Interspeech 2017*, 364-368. [PDF](http://www.isca-speech.org/archive/Interspeech_2017/pdfs/1150.PDF)
 
 ### Presentations
-- Zee, T., & Sebregts, K. (2016, April). *Yorkshire assimilation at the interface*. Paper presented at the 7th Northern Englishes Workshop, Edinburgh, UK.
+- Zee, T., & Sebregts, K. (2016, April). *Yorkshire assimilation at the interface*. Paper presented at the 7th Northern Englishes Workshop, Edinburgh, UK. [PDF](http://www.lel.ed.ac.uk/new7/zee-sebregts.pdf)
 
 ### Poster Presentations
 - Zee, T., Bentum, M., Nijveld, A., & Ernestus, M. (2017, June). *The influence of acoustically manipulated perceptual distance on exemplar effects*. Poster session presented at the Conversational Speech and Lexical Representations Workshop, Nijmegen, The Netherlands.
