@@ -34,9 +34,15 @@
     padding: 0;
   }
 
-  ul li {
+  li {
     float: right;
-    list-style: none;
+  }
+
+  li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
   }
 
   .nav-trigger {
