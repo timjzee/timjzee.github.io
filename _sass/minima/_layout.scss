@@ -46,6 +46,10 @@
     }
   }
 
+  .active {
+    background-color: #2F4F4F;
+  }
+
   @include media-query($on-palm) {
     position: absolute;
     top: 9px;
