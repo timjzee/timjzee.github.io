@@ -43,6 +43,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    float: right;
 
     //Gaps between nav items, but not on the last one
     &:not(:last-child) {
@@ -51,7 +52,7 @@
   }
 
   .active {
-    background-color: #D3D3D3;
+    background-color: #F0F8FF;
   }
 
   @include media-query($on-palm) {
