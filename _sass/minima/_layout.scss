@@ -28,34 +28,21 @@
   float: right;
   line-height: $base-line-height * $base-font-size * 2.25;
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .nav-trigger {
+      display: none;
   }
 
-  li {
-    float: right;
+  .menu-icon {
+    display: none;
   }
-
-  li a {
-    display: block;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-
-  //.nav-trigger {
-      //display: none;
-  //}
-
-  //.menu-icon {
-    //display: none;
-  //}
 
   .page-link {
     color: $text-color;
     line-height: $base-line-height;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 
     // Gaps between nav items, but not on the last one
     //&:not(:last-child) {
