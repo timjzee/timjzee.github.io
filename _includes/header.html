@@ -4,9 +4,9 @@
     {% assign default_paths = site.pages | map: "path" %}
     {% assign page_paths = site.header_pages | default: default_paths %}
     {% if page.url == "/" %}
-      <a class="site-title active" href="{{ "/" | relative_url }}">Tim's Blog1</a>
+      <a class="site-title active" href="{{ "/" | relative_url }}">Tim's Blog</a>
     {% else %}
-      <a class="site-title" href="{{ "/" | relative_url }}">Tim's Blog2</a>
+      <a class="site-title" href="{{ "/" | relative_url }}">Tim's Blog</a>
     {% endif %}
 
     {% if page_paths %}
