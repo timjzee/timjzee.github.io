@@ -23,6 +23,10 @@
   text-decoration: none;
   color: $text-color;
 
+  .active {
+    background-color: #D3D3D3;
+  }
+
 //  &,
 //  &:visited {
 //    color: $grey-color-dark;
