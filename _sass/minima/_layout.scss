@@ -22,12 +22,15 @@
   padding: 16px 16px;
   text-decoration: none;
   color: $text-color;
-  background-color: #D3D3D3;
 
 //  &,
 //  &:visited {
 //    color: $grey-color-dark;
 //  }
+}
+
+.site-title, .active {
+  background-color: #D3D3D3;
 }
 
 .site-nav {
