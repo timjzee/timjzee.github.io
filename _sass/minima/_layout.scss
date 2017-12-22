@@ -23,8 +23,21 @@
   text-decoration: none;
   color: $text-color;
 
+  &:link {
+    color: $text-color;
+  }
+
+  &:visited {
+    color: $text-color;
+  }
+
   &:hover {
     text-decoration: none;
+    color: $text-color;
+  }
+
+  &:active {
+    color: $text-color;
   }
 //  &,
 //  &:visited {
