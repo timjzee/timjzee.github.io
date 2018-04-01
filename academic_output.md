@@ -21,4 +21,5 @@ permalink: /academic_output/
 - Zee, T. (2015). *Yorkshire assimilation: An experimental Investigation of Gradient Phonological Alternation* (Bachelor's thesis). [PDF](https://dspace.library.uu.nl/bitstream/handle/1874/317879/Tim_Zee_final_Bachelor_Thesis_v3.pdf)
 
 ### Other
+- Zee, T. (2017). *The relationship between turn-final eye gaze and floor transfer offset*. Unpublished manuscript. [PDF](https://nvc.uvt.nl/pdf/2017/mgjswerts_uvtnl_-_tj_zee_-_271316.pdf)
 - Zee, T. (2016). Revisiting Yorkshire assimilation. *Transactions of the Yorkshire Dialect Society 2015*, 34-46.
