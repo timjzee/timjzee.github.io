@@ -17,7 +17,7 @@ permalink: /academic_output/
 - Zee, T., Bentum, M., Nijveld, A., & Ernestus, M. (2017, June). *The influence of acoustically manipulated perceptual distance on exemplar effects*. Poster session presented at the Conversational Speech and Lexical Representations Workshop, Nijmegen, The Netherlands.
 
 ### Theses
-- Zee, T. (2017). *The influence of acoustically manipulated similarity on exemplar effects* (Master's thesis).
+- Zee, T. (2017). *The influence of acoustically manipulated similarity on exemplar effects* (Master's thesis). [PDF](http://theses.ubn.ru.nl/bitstream/handle/123456789/5484/Zee%2c_T.J._1.pdf?sequence=1)
 - Zee, T. (2015). *Yorkshire assimilation: An experimental Investigation of Gradient Phonological Alternation* (Bachelor's thesis). [PDF](https://dspace.library.uu.nl/bitstream/handle/1874/317879/Tim_Zee_final_Bachelor_Thesis_v3.pdf)
 
 ### Other
