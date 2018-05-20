@@ -7,7 +7,7 @@ categories: linguistics literature text-mining
 
 *NOTE: If your just looking for gold standard hand annotation files, scroll down to the bottom of this page.*
 
-# Introduction
+## Introduction
 
 A few years ago—when I still wanted to major in English literature—I decided to read *Frankenstein*. Apart from being vaguely interested in the story, I was mainly drawn to it because of the weird 19th century Romantic drama surrounding its inception. Long story short, Percy, a 22 year old poet, meets Mary, the 17 year old daughter of a prominent intellectual; Percy deserts his pregnant wife to party with Mary in continental Europe, where Mary participates in a ghost story competition and writes *Frankenstein*; Back in England, Percy edits and publishes *Frankenstein* before drowning off the coast of Italy.
 
@@ -25,7 +25,7 @@ These annotations definitely contributed to my reading experience, but after fin
 During my course project, I encountered a number of problems and questions. In this three part series of articles I'll describe how I eventually solved these problems (by building on other people's work) and found some interesting results.
 It is worth noting that these articles are intended 'for dummies' and are definitely written by a dummy; I am by no means a computer programmer or literary scholar. However, these articles will be rather detailed. So buckle up for a long read or skip to the parts you find interesting.
 
-# Getting a gold standard text
+## Getting a gold standard text
 
 The first problem I encountered, and the topic of this first article, concerns getting a digital version of the hand annotated text by Robinson. This is more difficult than it may seem. Although an e-book version of this text exists, text mining techniques can't deal with the e-book formats (like .azw or .epub) used by Amazon or Google. In order to make Robinson's annotation readable by computers we would need to convert his text into programmable objects. One of the simplest ways to do this would be to create two lists (or *arrays* in programmer talk): one list that splits up the novel into stretches that are written by Mary and Percy respectively, and a second list with the author's names that correspond to those stretches of text. For example, the start of Chapter 14 (in the picture above) would be represented as follows:
 
@@ -38,7 +38,7 @@ __Table 1__: This how I wanted the annotated version of Frankenstein to be struc
 
 It might be possible to convert the e-book into this format. However, often e-books are DRM-protected which would probably make this process rather frustrating. Besides, it would likely be illegal to turn the e-book version into raw text and redistribute it online. Luckily, we have an alternative source for Robinson's annotated version: *The Shelley Godwin Archive*.
 
-## The Shelley Godwin Archive
+### The Shelley Godwin Archive
 
 [The Shelley Godwin Archive](http://shelleygodwinarchive.org) (SGA) is a website that contains high quality scans and transcriptions of drafts written by different members of the Shelley and Godwin families. *Frankenstein* is one of the drafts presented on the website, and the description accompanying the draft states that:
 
@@ -54,7 +54,7 @@ In this interface, the transcriptions on the right provide a digitized version o
 
 But I needed these files locally, and luckily the SGA developers allow anyone to access them on [their GitHub page](https://github.com/umd-mith/sga). I now had a digital version of *Frankenstein* with Robinson's hand annotation on my computer, but I still had to interpret them and turn these files into the structure illustrated in Table 1.
 
-## Parsing XML files
+### Parsing XML files
 
 The files I had downloaded were structured according to XML markup language. This language makes use of hierarchical structures. Simply looking at an XML file can give you a good idea of what this all means. Let's take a look at a (slightly simplified version of) the XML code for the start of Chapter 14 (which corresponds to Chapter 13 in the draft):
 
@@ -129,7 +129,7 @@ Success! `than` is now in the right place! However, you will have noticed that a
 
 I won't go into detail about how I processed these features in my Python script, but [the encoding guidelines](https://github.com/umd-mith/sga/blob/master/docs/encoding-guidelines.md) used in the creation of the SGA give a nice overview of the XML side of things. In hindsight, I was really lucky to have these encoding guidelines, especially considering my limited experience with XML. They essentially gave me a systematic and detailed overview of the problems that needed to be solved, allowing me to jump right into someone else's XML files.
 
-## Text processing
+### Text processing
 
 Although the XML structure in the SGA files is really useful to keep track of the changes in the manuscript and who made them, it also has certain drawbacks. Because the SGA annotators were so focussed on correctly applying the XML structure, they seemingly lost track of spaces between words when these words were contained in different elements. For example, extracting the text of the first few lines of Chapter 14 actually results in:
 ```
@@ -219,7 +219,7 @@ which amounted to 0.0
 ```
 After some fine-tuning, the combination of this method with a number of heuristic rules turned out to be *almost* perfect in determining when a space should be inserted.
 
-## Composition of pages
+### Composition of pages
 Apart from processing the XML and text of individual pages, we also need to put these different pages into the right order. Luckily, most of this work was done by the SGA team. They provide XML files which list the pages that make up each chapter.
 
 I adapted these files so that the composed text resembles the 1818 edition of the novel while maintaining insight in the contribution of Percy Shelley. As such, the text is taken from the 1816-1817 draft up until the last few pages of Chapter 18. From that point onwards the text has been taken from the Fair Copy so that Percy's contributions to those final pages are reflected in the final text. As Robinson notes in the introduction to his annotated edition:
@@ -232,9 +232,9 @@ Furthermore, as Robinson notes, the following sections are missing from the 1816
 
 I have chosen not to replicate these sections from the 1818 version as we do not know who wrote them.
 
-## Gold standard JSON files
+### Gold standard JSON files
 
-### Consecutive text by same hand
+#### Consecutive text by same hand
 
 - [Text](/assets/text_list.json)
 - [Hand annotation](/assets/hand_list.json)
@@ -248,7 +248,7 @@ Sample:
 ["mws", "pbs", "mws", "pbs"]
 ```
 
-### Tokenized text
+#### Tokenized text
 
 *NOTE: For hand changes within a word, the word was labelled with the majority hand.*
 
