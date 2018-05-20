@@ -77,7 +77,7 @@ The files I had downloaded were structured according to XML markup language. Thi
 
 The hierarchy in this structure can be visualized as follows:
 
-![Alt text](./resources/xml_tree.svg)
+![Alt text](/_posts/resources/xml_tree.svg)
 
 Each box in the figure corresponds to an element or *node*. The arrows represent the hierarchical relations between different *nodes*, where the node at the base of the arrow is the *parent* and the node at the pointy end is the *child*. For example, the three __Line__ nodes are the children of the __Zone__ node.
 
