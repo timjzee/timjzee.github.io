@@ -13,11 +13,11 @@ A few years ago—when I still wanted to major in English literature—I decided
 
 Intrigued, I looked for an annotated edition of the novel that would provide additional details and context to the creation of Frankenstein. I quickly settled on this edition:
 
-![alt text](https://github.com/timjzee/frankenstein-v2/blob/master/articles/cover.jpg?raw=true "Book Cover")
+![alt text](/assets/cover.jpg "Book Cover")
 
 Interestingly, this edition contains two versions of the story: one version reprints the text of the first edition of the novel from 1818, and the other version was composed by the editor from handwritten drafts of *Frankenstein* that are held at the Oxford University library. However, the editor hadn't stopped there. He had marked Percy's contributions to this draft text in italics, using regular font for Mary's writing:
 
-![alt text](https://github.com/timjzee/frankenstein-v2/blob/master/articles/ch14.jpg?raw=true "Chapter 14")
+![alt text](/assets/ch14.jpg "Chapter 14")
 
 The editor, Charles E. Robinson, had based this annotation on a painstaking analysis of the different handwritings and types of ink that were used in the drafts.
 These annotations definitely contributed to my reading experience, but after finishing the novel I quickly forgot about them. Last year, however, I was suddenly reminded of them when I was scrambling to find a topic for a course project. The course, which was called "Text mining", was about the application of computer algorithms (or to use another buzzword "machine learning") to 'mine' interesting information from text sources. The course had briefly touched on authorship attribution: feeding linguistic features of a text into computer algorithms to determine its author. I wondered whether it would be possible to use this method to arrive at an annotation of *Frankenstein* that was similar to the hand annotation by Robinson.
@@ -46,11 +46,11 @@ It might be possible to convert the e-book into this format. However, often e-bo
 
 The screenshot below illustrates how the SGA presents these transcriptions:
 
-![alt text](https://github.com/timjzee/frankenstein-v2/blob/master/articles/sga_interface.png?raw=true "SGA Interface")
+![alt text](/assets/sga_interface.png "SGA Interface")
 
 In this interface, the transcriptions on the right provide a digitized version of the scanned draft page on the left, including the changes (in italics) made by Percy when he edited the draft. However, we can't really use these annotations as is. First of all, they're on a website, and second, although the changes by Percy are represented, it is not clear where they should be inserted. In other words, we need the source code of the transcriptions. The SGA actually allows you to see the code in which the transcriptions were made:
 
-![alt text](https://github.com/timjzee/frankenstein-v2/blob/master/articles/sga_interface2.png?raw=true "SGA Interface")
+![alt text](/assets/sga_interface2.png "SGA Interface")
 
 But I needed these files locally, and luckily the SGA developers allow anyone to access them on [their GitHub page](https://github.com/umd-mith/sga). I now had a digital version of *Frankenstein* with Robinson's hand annotation on my computer, but I still had to interpret them and turn these files into the structure illustrated in Table 1.
 
@@ -125,7 +125,7 @@ Running the code above gives us:
 ```
 Chap. 13th Nothing is more painful than when the mind has been worked up by a quick
 ```
-Success! `than` is now in the right place! However, you will have noticed that a large part of Percy's addition is missing from this text. This is because this addition is on another part of the page contained within its own `<zone></zone>` element. That zone element is referenced by the `<anchor/>` element in the main zone. Furthermore, we have not been keeping track of any hand changes, though it is clearly indicated in the XML code that the `<add></add>` element containing `than` has a *hand* attribute with the value `#pbs`. In other words, we can use this attribute to establish that this addition was made by __P__ercy __B__yshe __S__helley.
+Success! `than` is now in the right place! However, you will have noticed that a large part of Percy's addition is missing from this text. This is because this addition is on another part of the page contained within its own `<zone></zone>` element. That zone element is referenced by the `<anchor/>` element in the main zone. Furthermore, we have not been keeping track of any hand changes, though it is clearly indicated in the XML code that the `<add></add>` element containing `than` has a *hand* attribute with the value `#pbs`. In other words, we can use this attribute to establish that this addition was made by Percy Byshe Shelley.
 
 I won't go into detail about how I processed these features in my Python script, but [the encoding guidelines](https://github.com/umd-mith/sga/blob/master/docs/encoding-guidelines.md) used in the creation of the SGA give a nice overview of the XML side of things. In hindsight, I was really lucky to have these encoding guidelines, especially considering my limited experience with XML. They essentially gave me a systematic and detailed overview of the problems that needed to be solved, allowing me to jump right into someone else's XML files.
 
