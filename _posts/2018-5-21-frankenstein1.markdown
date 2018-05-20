@@ -236,8 +236,8 @@ I have chosen not to replicate these sections from the 1818 version as we do not
 
 ### Consecutive text by same hand
 
-- [Text]()
-- [Hand annotation]()
+- [Text](/assets/text_list.json)
+- [Hand annotation](/assets/hand_list.json)
 
 Sample:
 ```python
