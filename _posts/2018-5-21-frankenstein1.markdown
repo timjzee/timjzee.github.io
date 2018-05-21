@@ -5,7 +5,7 @@ date:   2018-5-21 01:15:00 +0100
 categories: linguistics literature text-mining
 ---
 
-*NOTE: If your just looking for gold standard hand annotation files, scroll down to the bottom of this page.*
+*NOTE: If you're just looking for gold standard hand annotation files, scroll down to the bottom of this page.*
 
 ## Introduction
 
