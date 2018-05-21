@@ -252,8 +252,8 @@ Sample:
 
 *NOTE: For hand changes within a word, the word was labelled with the majority hand.*
 
-- [Text]()
-- [Hand annotation]()
+- [Text](/assets/text_list_tokenized.json)
+- [Hand annotation](/assets/hand_list_tokenized.json)
 
 Sample:
 ```python
@@ -261,5 +261,5 @@ Sample:
 ["nothing", "is", "more", "painful", "than", "the", "dead", "calmness", "of", "inaction", "&", "certainty", "which",  "when", "the", "mind", "has", "been", "worked", "up", "by", "a", "quick", "succession", "of", "events", "follows", "and"]
 
 # Hand
-["mws", "mws", "mws", "mws", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "pbs", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws"]
+["mws", "mws", "mws", "mws", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "pbs", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "mws", "pbs"]
 ```
