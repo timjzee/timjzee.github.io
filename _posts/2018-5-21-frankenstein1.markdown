@@ -31,10 +31,13 @@ The first problem I encountered, and the topic of this first article, concerns g
 
 __Table 1__: This how I wanted the annotated version of Frankenstein to be structured.
 
-
 | Text Array | `nothing is more painful` | `than the dead calmness of inaction and certainty which,` | `when the mind ...` |
 | :---: | :---: | :---: | :---: |
 | __Hand Array__ | __`Mary Shelley`__ | __`Percy Shelley`__ | __`Mary Shelley`__ |
+
+This structure can be implemented in so-called JSON objects:
+- text.json: `["Nothing is more painful ", "than the dead calmness of inaction & certainty which", " when the mind ..."]`
+- hand.json: `["mws", "pbs", "mws"]`
 
 It might be possible to convert the e-book into this format. However, often e-books are DRM-protected which would probably make this process rather frustrating. Besides, it would likely be illegal to turn the e-book version into raw text and redistribute it online. Luckily, we have an alternative source for Robinson's annotated version: *The Shelley Godwin Archive*.
 
@@ -81,20 +84,17 @@ The hierarchy in this structure can be visualized as follows:
 
 Each box in the figure corresponds to an element or *node*. The arrows represent the hierarchical relations between different *nodes*, where the node at the base of the arrow is the *parent* and the node at the pointy end is the *child*. For example, the three __Line__ nodes are the children of the __Zone__ node.
 
-My first priority was to extract the text contained in these elements in the right order. As you can see there are 2 types of text that can be associated with an element: text and tail text. Text occurs directly after an opening `<>` tag, and tail text occurs directly after a closing `</>` tag. This is important because, as I found out, it necessitates a certain approach. My first instinct was to flatten the hierarchical structure and simply extract the text linearly, see the Python code below:
+My first priority was to extract the text contained in these elements in the right order. As you can see there are 2 types of text that can be associated with an element: text and tail text. Text occurs directly after an opening `<>` tag, and tail text occurs directly after a closing `</>` tag. This is important because, as I found out, it necessitates a certain approach. My first instinct was to flatten the hierarchical structure and simply process the elements in the linear order in which they occur, see the Python code below:
 
 ```python
 from lxml import etree  # lxml is a library that allows Python to handle XML structure
 
 # assigning our example XML code to a Python lxml object
-zone = etree.fromstring('<zone type="main"><line>Chap. 13<hi>th </hi></line><line>Nothing is more painful<mod><add hand="#pbs"> than</add><anchor xml:id="c56-0108.02"/></mod> when the </line><line>mind has been worked up by a <add>quick</add></line></zone>')
+zone = etree.fromstring('<zone type="main"><line>Chap. 13<hi>th </hi></line><line>Nothing is more painful <mod><add hand="#pbs">than </add><anchor xml:id="c56-0108.02"/></mod>when the </line><line>mind has been worked up by a <add>quick</add></line></zone>')
 
-# by flattening zone we create a simple list of all the tags in zone
-flat_zone = [i for i in zone.iter()]
-
-# now we simply loop through each element and extract all text, right?
+# now we loop through a flattened list elements and extract all text, right?
 reading_text = ""
-for element in flat_zone:
+for element in zone.iter():
     reading_text += element.text if element.text else ""  # extract text
     reading_text += element.tail if element.tail else ""  # extract tail text
 
@@ -105,7 +105,7 @@ Running the code above gives us:
 ```
 Chap. 13th Nothing is more painful when the than mind has been worked up by a quick
 ```
-As we can see the word `than` is in the wrong place. This is because we need to process the children of the `<mod></mod>` element before we process the tail text of `<mod></mod>`. In fact, this is a general principle that applies to every element. How do we generalize this process so that we can apply it to every Frankenstein XML file without knowing how many elements it consists of and which elements contain children? The answer is a function which keeps going down the hierarchy of elements by calling itself until an element without any children (a so-called *terminal node*) is encountered. In other words, we need to make a recursive function:
+As we can see the word `than` is in the wrong place. This is because we need to process the children of the `<mod></mod>` element before we process the tail text of `<mod></mod>` itself. In fact, this is a general principle that applies to every element. First we extract the regular text from a parent element, then we process the children of that element, and finally we extract the tail text of a parent element. How do we generalize this process so that we can apply it to every Frankenstein XML file without knowing how many elements it consists of and which elements contain children? The answer is a function which keeps going down the hierarchy of elements by calling itself until an element without any children (a so-called *terminal node*) is encountered. In other words, we need to make a recursive function:
 
 ```python
 def processElement(element):
@@ -114,7 +114,7 @@ def processElement(element):
     reading_text += element.text if element.text else ""
     # process children of element
     for child in element:
-        reading_text += processElement(child)
+        reading_text += processElement(child)  # this is the recursive part
     # extract any tail text of element
     reading_text += element.tail if element.tail else ""
     return reading_text
@@ -125,7 +125,7 @@ Running the code above gives us:
 ```
 Chap. 13th Nothing is more painful than when the mind has been worked up by a quick
 ```
-Success! `than` is now in the right place! However, you will have noticed that a large part of Percy's addition is missing from this text. This is because this addition is on another part of the page contained within its own `<zone></zone>` element. That zone element is referenced by the `<anchor/>` element in the main zone. Furthermore, we have not been keeping track of any hand changes, though it is clearly indicated in the XML code that the `<add></add>` element containing `than` has a *hand* attribute with the value `#pbs`. In other words, we can use this attribute to establish that this addition was made by Percy Byshe Shelley.
+Success! `than` is now in the right place! However, you will have noticed that a large part of Percy's addition is missing from this text. This is because this addition is on another part of the page contained within its own `<zone></zone>` element. That zone element is referenced by the `<anchor/>` element in the main zone. Furthermore, we have not been keeping track of any hand changes, though it is clearly indicated in the XML code that the `<add></add>` element containing `than` has a *hand* attribute with the value `#pbs`. In other words, we can use this attribute to establish that this addition was made by Percy Bysshe Shelley.
 
 I won't go into detail about how I processed these features in my Python script, but [the encoding guidelines](https://github.com/umd-mith/sga/blob/master/docs/encoding-guidelines.md) used in the creation of the SGA give a nice overview of the XML side of things. In hindsight, I was really lucky to have these encoding guidelines, especially considering my limited experience with XML. They essentially gave me a systematic and detailed overview of the problems that needed to be solved, allowing me to jump right into someone else's XML files.
 
@@ -146,9 +146,9 @@ As you can see, the annotators forgot to add spaces in `13thNothing` and `themin
 </zone>
 ```
 
-Both the first and the second line elements end in words that are broken off and finished in the following line. As such, implementing a rule that inserts a space between text from different elements would result in `occupa tions` and `sacri lege` respectively. In order to solve this problem, then, we clearly need a more intelligent solution.
+Both the first and the second line elements end in words that are broken off and finished in the following line. As such, implementing a rule that inserts a space between text from different elements would result in `occupa tions` and `sacri lege` respectively. This shows that we clearly need a more intelligent solution.
 
-In certain cases we can make use of general rules. For instance, whenever a number is followed by `th`, as in `<line>Chap. 13<hi>th</hi></line>`, we know not to insert a space. However, we need to know that `occupa` and `tions` are not part of the English vocabulary in order to correctly extract `occupations`. In other words, we need to make use of a dictionary if we want to process the text in the SGA files automatically.
+In certain cases we can make use of general rules. For instance, whenever a number is followed by `th`, as in `<line>Chap. 13<hi>th</hi></line>`, we know not to insert a space. However, in order to correctly extract `occupations`, we need to know that `occupa` and `tions` are not part of the English vocabulary. In other words, we need to make use of a dictionary if we want to process the text in the SGA files automatically.
 
 The [Datamuse API](http://www.datamuse.com/api/) provides a programmable interface to an extensive English dictionary. This means that we can send a string of text to the Datamuse server, which then sends back a list of words that resemble the string of text we provided. For each item in this list, Datamuse also provides a relevancy score and a frequency measure. See below for the JSON object that is returned when the string `occupations` is sent to the Datamuse API:
 
@@ -182,20 +182,20 @@ def callDatamuse(text):
     output = requests.get("https://api.datamuse.com/words?sp={}&md=f".format(text))
     output_list = output.json()
     matched_words = [i["word"] for i in output_list]
-    score = 0
+    relevance = 0
     frequency = 0
     if text in matched_words:
         word_index = matched_words.index(text)
-        score = output_list[word_index]["score"]
+        relevance = output_list[word_index]["score"]
         frequency = float(output_list[word_index]["tags"][0][2:])
-    final_score = score * math.sqrt(frequency)
+    final_score = relevance * math.sqrt(frequency)  # calculate a final score from relevance and the square root of frequency
     return final_score
 
-# First, let's get the score for 'no space'
+# First, let's get the score for 'no space' and store it in a dictionary object
 
 scores = {"occupations": callDatamuse("occupations")}
 
-# Now, lets get the score for 'insert space'
+# Now, lets get the score for 'insert space' and add it to the dictionary
 
 mean_score = statistics.mean([callDatamuse("occupa"), callDatamuse("tions")])
 scores["occupa tions"] = mean_score
