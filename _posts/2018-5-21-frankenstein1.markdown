@@ -9,9 +9,9 @@ categories: linguistics literature text-mining
 
 ## Introduction
 
-A few years ago—when I still wanted to major in English literature—I decided to read *Frankenstein*. Apart from being vaguely interested in the story, I was mainly drawn to it because of the weird 19th century Romantic drama surrounding its inception. Long story short, Percy, a 22 year old poet, meets Mary, the 17 year old daughter of a prominent intellectual; Percy deserts his pregnant wife to party with Mary in continental Europe, where Mary participates in a ghost story competition and writes *Frankenstein*; Back in England, Percy edits and publishes *Frankenstein* before drowning off the coast of Italy.
+A few years ago—when I still wanted to major in English literature—I decided to read *Frankenstein*. Apart from being vaguely interested in the story, I was mainly drawn to it because of the weird 19th century Romantic drama surrounding its inception. Long story short, Percy, a 22 year old poet, meets Mary, the 17 year old daughter of a prominent British intellectual; Percy deserts his pregnant wife to party with Mary in continental Europe, where Mary participates in a ghost story competition and writes *Frankenstein*; Percy then edits and publishes *Frankenstein* before drowning off the coast of Italy.
 
-Intrigued, I looked for an annotated edition of the novel that would provide additional details and context to the creation of Frankenstein. I quickly settled on this edition:
+Intrigued by this story, I looked for an annotated edition of the novel that would provide additional details and context to the creation of Frankenstein. I quickly settled on this edition:
 
 ![alt text](/assets/cover.jpg "Book Cover")
 
@@ -20,10 +20,10 @@ Interestingly, this edition contains two versions of the story: one version repr
 ![alt text](/assets/ch14.jpg "Chapter 14")
 
 The editor, Charles E. Robinson, had based this annotation on a painstaking analysis of the different handwritings and types of ink that were used in the drafts.
-These annotations definitely contributed to my reading experience, but after finishing the novel I quickly forgot about them. Last year, however, I was suddenly reminded of them when I was scrambling to find a topic for a course project. The course, which was called "Text mining", was about the application of computer algorithms (or to use another buzzword "machine learning") to 'mine' interesting information from text sources. The course had briefly touched on authorship attribution: feeding linguistic features of a text into computer algorithms to determine its author. I wondered whether it would be possible to use this method to arrive at an annotation of *Frankenstein* that was similar to the hand annotation by Robinson.
+Last year, I was suddenly reminded of these annotations when I was scrambling to find a topic for a course project. The course, which was called "Text mining", was about the application of computer algorithms (or to use another buzzword "machine learning") to 'mine' interesting information from text sources. The course had briefly touched on something called authorship attribution: feeding linguistic features of a text into computer algorithms to determine its author. I wondered whether it would be possible to use this method to arrive at an annotation of *Frankenstein* that was similar to the hand annotation by Robinson.
 
-During my course project, I encountered a number of problems and questions. In this three part series of articles I'll describe how I eventually solved these problems (by building on other people's work) and found some interesting results.
-It is worth noting that these articles are intended 'for dummies' and are definitely written by a dummy; I am by no means a computer programmer or literary scholar. However, these articles will be rather detailed. So buckle up for a long read or skip to the parts you find interesting.
+During my course project, I encountered a number of problems and questions. In this three part series of articles I'll describe how I eventually solved these problems (long after the course was over) and found some interesting results.
+It is worth noting that these articles are intended 'for dummies' and are definitely written by a dummy; I am by no means a computer programmer or literary scholar. However, these articles __will__ be rather detailed. So buckle up for a long read or skip to the parts you find interesting.
 
 ## Getting a gold standard text
 
@@ -177,16 +177,21 @@ import requests  # this library allows us to make requests over the internet
 import math, statistics
 
 def callDatamuse(text):
+    # get the JSON object from Datamuse
     output = requests.get("https://api.datamuse.com/words?sp={}&md=f".format(text))
     output_list = output.json()
+    # get a simple list of the words returned by Datamuse:
     matched_words = [i["word"] for i in output_list]
     relevance = 0
     frequency = 0
+    # check whether the text is a word that exists and
     if text in matched_words:
+        # if so, get the relevance score and frequency of that word
         word_index = matched_words.index(text)
         relevance = output_list[word_index]["score"]
         frequency = float(output_list[word_index]["tags"][0][2:])
-    final_score = relevance * math.sqrt(frequency)  # calculate a final score from relevance and the square root of frequency
+    # calculate a final score from relevance and the square root of frequency
+    final_score = relevance * math.sqrt(frequency)
     return final_score
 
 # First, let's get the score for 'no space' and store it in a dictionary object
@@ -216,7 +221,7 @@ which amounted to 0.0
 After some fine-tuning, the combination of this method with a number of heuristic rules turned out to be *almost* perfect in determining when a space should be inserted.
 
 ### Composition of pages
-Apart from processing the XML and text of individual pages, we also need to put these different pages into the right order. Luckily, most of this work was done by the SGA team. They provide XML files which list the pages that make up each chapter.
+Apart from processing the XML and text of individual pages, we also need to put these different pages into the right order. Luckily, most of this work was done by the SGA team. They provide [XML files](https://github.com/timjzee/frankenstein-v2/blob/master/sga-data/ox-frankenstein-volume_i.xml) which list the pages that make up each chapter.
 
 I adapted these files so that the composed text resembles the 1818 edition of the novel while maintaining insight in the contribution of Percy Shelley. As such, the text is taken from the 1816-1817 draft up until the last few pages of Chapter 18. From that point onwards the text has been taken from the Fair Copy so that Percy's contributions to those final pages are reflected in the final text. As Robinson notes in the introduction to his annotated edition:
 
