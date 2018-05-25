@@ -203,12 +203,10 @@ scores["occupa tions"] = mean_score
 winner = max(scores)
 loser = min(scores)
 
-print('''
-The correct text is '{}',
+print('''The correct text is '{}',
 because its score of {}
 is greater than the score of '{}',
-which amounted to {}
-'''.format(winner, scores[winner], loser, scores[loser]))
+which amounted to {}'''.format(winner, scores[winner], loser, scores[loser]))
 ```
 Running this code gives:
 ```
