@@ -29,21 +29,19 @@ It is worth noting that these articles are intended 'for dummies' and are defini
 
 The first problem I encountered, and the topic of this first article, concerns getting a digital version of the hand annotated text by Robinson. This is more difficult than it may seem. Although an e-book version of this text exists, text mining techniques can't deal with the e-book formats (like .azw or .epub) used by Amazon or Google. In order to make Robinson's annotation readable by computers we would need to convert his text into programmable objects. One of the simplest ways to do this would be to create two lists (or *arrays* in programmer talk): one list that splits up the novel into stretches that are written by Mary and Percy respectively, and a second list with the author's names that correspond to those stretches of text. For example, the start of Chapter 14 (in the picture above) would be represented as follows:
 
-__Table 1__: This how I wanted the annotated version of Frankenstein to be structured.
-
 | Text Array | `nothing is more painful` | `than the dead calmness of inaction and certainty which,` | `when the mind ...` |
 | :---: | :---: | :---: | :---: |
 | __Hand Array__ | __`Mary Shelley`__ | __`Percy Shelley`__ | __`Mary Shelley`__ |
 
-This structure can be implemented in so-called JSON objects:
-- text.json: `["Nothing is more painful ", "than the dead calmness of inaction & certainty which", " when the mind ..."]`
-- hand.json: `["mws", "pbs", "mws"]`
+This structure can be implemented in so-called JSON files by formatting the raw text in a certain way:
+- text_array.json: `["Nothing is more painful ", "than the dead calmness of inaction & certainty which", " when the mind ..."]`
+- hand_array.json: `["mws", "pbs", "mws"]`
 
 It might be possible to convert the e-book into this format. However, often e-books are DRM-protected which would probably make this process rather frustrating. Besides, it would likely be illegal to turn the e-book version into raw text and redistribute it online. Luckily, we have an alternative source for Robinson's annotated version: *The Shelley Godwin Archive*.
 
 ### The Shelley Godwin Archive
 
-[The Shelley Godwin Archive](http://shelleygodwinarchive.org) (SGA) is a website that contains high quality scans and transcriptions of drafts written by different members of the Shelley and Godwin families. *Frankenstein* is one of the drafts presented on the website, and the description accompanying the draft states that:
+[The Shelley Godwin Archive](http://shelleygodwinarchive.org) (SGA) is a website that contains high quality scans and open source transcriptions of drafts written by different members of the Shelley and Godwin families. *Frankenstein* is one of the drafts presented on the website, and the description accompanying the draft states that:
 
 > both our transcriptions of the Frankenstein Notebooks and our attribution of authorial hand are based on Charles E. Robinson’s magisterial edition
 
@@ -51,11 +49,11 @@ The screenshot below illustrates how the SGA presents these transcriptions:
 
 ![alt text](/assets/sga_interface.png "SGA Interface")
 
-In this interface, the transcriptions on the right provide a digitized version of the scanned draft page on the left, including the changes (in italics) made by Percy when he edited the draft. However, we can't really use these annotations as is. First of all, they're on a website, and second, although the changes by Percy are represented, it is not clear where they should be inserted. In other words, we need the source code of the transcriptions. The SGA actually allows you to see the code in which the transcriptions were made:
+In this interface, the transcriptions on the right provide a digitized version of the scanned draft page on the left, including the changes (in italics) made by Percy when he edited the draft. However, we can't really use these annotations as they are. First of all, they're on a website, and second, although the changes by Percy are represented, it is not clear where they should be inserted. In other words, we need the source code of the transcriptions. The SGA actually allows you to see the code in which the transcriptions were made:
 
 ![alt text](/assets/sga_interface2.png "SGA Interface")
 
-But I needed these files locally, and luckily the SGA developers allow anyone to access them on [their GitHub page](https://github.com/umd-mith/sga). I now had a digital version of *Frankenstein* with Robinson's hand annotation on my computer, but I still had to interpret them and turn these files into the structure illustrated in Table 1.
+However, I needed these files locally, and luckily the SGA developers allow anyone to access them on [their GitHub page](https://github.com/umd-mith/sga). After downloading all of the files, I now had a digital version of *Frankenstein* with Robinson's hand annotation on my computer, but I still had to interpret them and turn these files into the structure illustrated above.
 
 ### Parsing XML files
 
@@ -131,7 +129,7 @@ I won't go into detail about how I processed these features in my Python script,
 
 ### Text processing
 
-Although the XML structure in the SGA files is really useful to keep track of the changes in the manuscript and who made them, it also has certain drawbacks. Because the SGA annotators were so focussed on correctly applying the XML structure, they seemingly lost track of spaces between words when these words were contained in different elements. For example, extracting the text of the first few lines of Chapter 14 actually results in:
+Although the XML structure in the SGA files is really useful to keep track of the changes in the manuscript and who made them, it also has certain drawbacks. Because the SGA annotators were so focussed on correctly applying the XML structure, they seemingly lost track of spaces between words when these words were contained in different elements. For example, extracting the text of the first few lines of Chapter 14 (Chapter 13 in the draft) actually results in:
 ```
 Chap. 13thNothing is more painful than when themind has been worked up by a quick
 ```
@@ -234,6 +232,8 @@ I have chosen not to replicate these sections from the 1818 version as we do not
 
 #### Consecutive text by same hand
 
+The completed Python script takes around 3-4 hours to turn all of the XML annotations into the two simple JSON arrays I wanted. These can be found below:
+
 - [Text](/assets/text_list.json)
 - [Hand annotation](/assets/hand_list.json)
 
@@ -248,7 +248,9 @@ Sample:
 
 #### Tokenized text
 
-*NOTE: For hand changes within a word, the word was labelled with the majority hand.*
+Authorship attribution and other text mining applications often derive their features from word information. In order to facilitate such analyses of Frankenstein, I have also constructed a version of the hand annotation on a word by word basis, see below for the corresponding files.
+
+*NOTE: For hand changes within a word, the word was labelled with the hand belonging to the majority of characters.*
 
 - [Text](/assets/text_list_tokenized.json)
 - [Hand annotation](/assets/hand_list_tokenized.json)
