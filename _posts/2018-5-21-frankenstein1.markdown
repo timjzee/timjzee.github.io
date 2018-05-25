@@ -232,7 +232,7 @@ I have chosen not to replicate these sections from the 1818 version as we do not
 
 #### Consecutive text by same hand
 
-The completed Python script takes around 3-4 hours to turn all of the XML annotations into the two simple JSON arrays I wanted. These can be found below:
+[The completed Python script](https://github.com/timjzee/frankenstein-v2/blob/master/sga-data/getFrankenstein.py) takes around 3-4 hours to turn all of the XML annotations into the two simple JSON arrays I wanted. These can be found below:
 
 - [Text](/assets/text_list.json)
 - [Hand annotation](/assets/hand_list.json)
