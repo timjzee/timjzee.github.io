@@ -23,6 +23,8 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 github_username: timjzee
 linkedin_username: tim-zee-387a5336
+disqus:
+  shortname: timzee
 
 # Build settings
 markdown: kramdown
