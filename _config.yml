@@ -26,6 +26,8 @@ linkedin_username: tim-zee-387a5336
 disqus:
   shortname: timzee
 
+google_analytics: UA-131192629-1
+
 # Build settings
 markdown: kramdown
 theme: minima
