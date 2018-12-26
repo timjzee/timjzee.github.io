@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hacking Frankenstein (Part 2): Exploring Percy's contribution"
+title:  "Frankenstein (Part 2): Exploring Percy's contribution"
 date:   2018-12-26 01:50:00 +0100
 categories: linguistics literature text-mining
 ---

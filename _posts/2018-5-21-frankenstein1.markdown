@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hacking Frankenstein (Part 1): Creating hand annotation files"
+title:  "Frankenstein (Part 1): Creating hand annotation files"
 date:   2018-5-21 01:15:00 +0100
 categories: linguistics literature text-mining
 ---
