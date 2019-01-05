@@ -173,7 +173,7 @@ library(stylo)
 function_words = fromJSON(file = "./f_words_frankenstein.json")
 freqs = make.table.of.frequencies(word_groups, features = function_words)
 ```
-The `make.table.of.frequencies()` function from the `stylo` library takes each sample and calculates for each function word in the list how often it occurs in that sample. That number is then turned into a proportion by dividing it by the sample size.
+The `make.table.of.frequencies()` function from the `stylo` library takes each sample and counts for each function word in the list how often it occurs in that sample. That number is then turned into a percentage by dividing it by the sample size and multiplying it by 100.
 
 By looking at the first few rows and columns of `freqs`, we can get a feeling for what the resulting feature vectors are like:
 
